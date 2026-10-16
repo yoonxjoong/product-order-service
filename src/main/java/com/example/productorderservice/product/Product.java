@@ -14,7 +14,7 @@ import org.springframework.util.Assert;
 @Table(name = "products")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-class Product {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,5 +42,9 @@ class Product {
         this.name = name;
         this.price = price;
         this.discountPolicy = discountPolicy;
+    }
+
+    public Long getDiscountedPrice() {
+        return discountPolicy.applyDiscount(price);
     }
 }

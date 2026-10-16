@@ -1,34 +1,30 @@
 package com.example.productorderservice.order;
 
+import com.example.productorderservice.product.ProductService;
+import com.example.productorderservice.product.ProductSteps;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class OrderServiceTest {
 
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private ProductService productService;
+
     @Test
     void 주문생성() {
 
-        String name = "상품번호";
-        Long price = 1000L;
-        int quantity = 1;
+        productService.addProduct(ProductSteps.상품조회요청_생성());
 
-        Order order = new Order(name, price, quantity);
+        final CreateOrderRequest request = OrderSteps.상품주문요청_생성();
 
-
-
+        orderService.createOrder(request);
     }
 
-    private class Order {
-        private final String name;
-        private final Long price;
-        private final int quantity;
 
-        public Order(final String name, final Long price, final int quantity) {
-
-            this.name = name;
-            this.price = price;
-            this.quantity = quantity;
-        }
-    }
 }
