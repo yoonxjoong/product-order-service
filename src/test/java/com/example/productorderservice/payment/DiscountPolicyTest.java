@@ -11,12 +11,14 @@ public class DiscountPolicyTest {
         final Long price = 1000L;
         final Long discountedPrice = DiscountPolicy.NONE.applyDiscount(price);
 
-        Assertions.assertThat(price).isEqualTo(discountedPrice);
+        Assertions.assertThat(price).isEqualTo(price - discountedPrice);
     }
 
     @Test
     void discountedPolicy() {
         final Long price = 2000L;
-        final Long discountedPrice;
+        final Long discountedPrice = DiscountPolicy.FIX_1000_AMT.applyDiscount(price);
+
+        Assertions.assertThat(price).isNotEqualTo(price - discountedPrice);
     }
 }

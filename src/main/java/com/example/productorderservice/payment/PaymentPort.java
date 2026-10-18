@@ -9,4 +9,6 @@ interface PaymentPort {
     void pay(Payment payment);
 
     void save(Payment payment);
+
+    void pay(Long price, String method);
 }

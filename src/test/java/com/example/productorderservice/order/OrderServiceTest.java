@@ -2,7 +2,6 @@ package com.example.productorderservice.order;
 
 import com.example.productorderservice.product.ProductService;
 import com.example.productorderservice.product.ProductSteps;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +20,9 @@ class OrderServiceTest {
 
         productService.addProduct(ProductSteps.상품조회요청_생성());
 
-        final CreateOrderRequest request = OrderSteps.상품주문요청_생성();
+        Long productId = 1L;
+        int quantity = 2;
+        final CreateOrderRequest request = new CreateOrderRequest(productId, quantity);
 
         orderService.createOrder(request);
     }
