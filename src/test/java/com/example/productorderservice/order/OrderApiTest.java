@@ -21,4 +21,14 @@ public class OrderApiTest extends ApiTest {
 
     }
 
+    @Test
+    void 존재하지_않는_상품주문() {
+        final var request = OrderSteps.상품주문요청_생성();
+
+        final var response = OrderSteps.상품주문요청(request);
+
+        Assertions.assertThat(response.statusCode()).isEqualTo(HttpStatus.NOT_FOUND.value());
+        Assertions.assertThat(response.asString()).isEqualTo("상품이 존재하지 않습니다.");
+    }
+
 }

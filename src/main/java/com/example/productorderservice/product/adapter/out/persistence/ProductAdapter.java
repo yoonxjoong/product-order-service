@@ -1,5 +1,6 @@
 package com.example.productorderservice.product.adapter.out.persistence;
 
+import com.example.productorderservice.common.NotFoundException;
 import com.example.productorderservice.product.application.port.out.ProductPort;
 import com.example.productorderservice.product.domain.Product;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ProductAdapter implements ProductPort {
     @Override
     public Product getProduct(final long productId) {
         return productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundException("상품이 존재하지 않습니다."));
     }
 
     @Override

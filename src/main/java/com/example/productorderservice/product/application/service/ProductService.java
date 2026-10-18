@@ -10,9 +10,12 @@ import com.example.productorderservice.product.domain.Product;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 @Service
 class ProductService implements AddProductUseCase, GetProductUseCase, UpdateProductUseCase {
+
+    private static final int MAX_PAGE_SIZE = 100;
 
     private final ProductPort productPort;
 
@@ -37,7 +40,11 @@ class ProductService implements AddProductUseCase, GetProductUseCase, UpdateProd
 
     @Override
     @Transactional(readOnly = true)
-    public List<Product> getProducts(int page, int size) {
+    public List<Product> getProducts(final int page, final int size) {
+        Assert.isTrue(page >= 0, "페이지 번호는 0 이상이어야 합니다.");
+        Assert.isTrue(size >= 1 && size <= MAX_PAGE_SIZE,
+                "페이지 크기는 1 이상 " + MAX_PAGE_SIZE + " 이하여야 합니다.");
+
         return productPort.getProducts(page, size);
     }
 
