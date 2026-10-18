@@ -46,3 +46,10 @@ macOS: Option + Enter
 macOS: Cmd + N -> Form Fields 또는 생성자/필드 관련 항목 선택
 
 Windows / Linux: Alt + Insert
+
+파일찾기
+command + shift + o
+
+
+임포트 정리
+control + option + o 
