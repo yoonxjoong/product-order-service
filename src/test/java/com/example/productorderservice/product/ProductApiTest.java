@@ -11,7 +11,7 @@ class ProductApiTest extends ApiTest {
     @Test
     void 상품등록() {
 
-        final var request = ProductSteps.상품조회요청_생성();
+        final var request = ProductSteps.상품추가_요청();
 
         final var response = ProductSteps.상품등록요청(request);
 
@@ -21,7 +21,7 @@ class ProductApiTest extends ApiTest {
     @Test
     void 상품조회() {
         // 상품 등록
-        ProductSteps.상품등록요청(ProductSteps.상품조회요청_생성());
+        ProductSteps.상품등록요청(ProductSteps.상품추가_요청());
 
         final Long productId = 1L;
 

@@ -1,10 +1,10 @@
 package com.example.productorderservice.order;
 
+import com.example.productorderservice.order.application.port.in.CreateOrderRequest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
-import org.jspecify.annotations.NonNull;
 
 public class OrderSteps {
 
@@ -18,10 +18,9 @@ public class OrderSteps {
                 .log().all().extract();
     }
 
-    public static @NonNull CreateOrderRequest 상품주문요청_생성() {
-        Long productId = 1L;
-        int quantity = 2;
-        final var request = new CreateOrderRequest(productId, quantity);
-        return request;
+    public static CreateOrderRequest 상품주문요청_생성() {
+        final Long productId = 1L;
+        final int quantity = 2;
+        return new CreateOrderRequest(productId, quantity);
     }
 }

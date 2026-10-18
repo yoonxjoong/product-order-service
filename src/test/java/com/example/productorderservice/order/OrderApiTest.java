@@ -11,7 +11,7 @@ public class OrderApiTest extends ApiTest {
 
     @Test
     void 상품주문() {
-        ProductSteps.상품등록요청(ProductSteps.상품조회요청_생성());
+        ProductSteps.상품등록요청(ProductSteps.상품추가_요청());
 
         final var request = OrderSteps.상품주문요청_생성();
 

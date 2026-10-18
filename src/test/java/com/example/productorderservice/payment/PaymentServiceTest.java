@@ -1,28 +1,26 @@
 package com.example.productorderservice.payment;
 
 import com.example.productorderservice.ApiTest;
-import com.example.productorderservice.order.OrderSteps;
 import com.example.productorderservice.product.ProductSteps;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.productorderservice.order.OrderSteps;
+import com.example.productorderservice.payment.application.port.in.PaymentRequest;
+import com.example.productorderservice.payment.application.port.in.PaymentUseCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
 
 class PaymentServiceTest extends ApiTest {
 
     @Autowired
-    private PaymentService paymentService;
+    private PaymentUseCase paymentUseCase;
 
     @Test
     void 상품결제() {
-        ProductSteps.상품등록요청(ProductSteps.상품조회요청_생성());
+        ProductSteps.상품등록요청(ProductSteps.상품추가_요청());
 
         OrderSteps.상품주문요청(OrderSteps.상품주문요청_생성());
 
-        PaymentRequest request = PaymentSteps.상품결제요청_생성();
+        final PaymentRequest request = PaymentSteps.상품결제요청_생성();
 
-        paymentService.payment(request);
+        paymentUseCase.payment(request);
     }
-
 }

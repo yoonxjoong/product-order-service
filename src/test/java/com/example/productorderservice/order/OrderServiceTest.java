@@ -1,31 +1,25 @@
 package com.example.productorderservice.order;
 
-import com.example.productorderservice.product.ProductService;
+import com.example.productorderservice.ApiTest;
+import com.example.productorderservice.order.application.port.in.CreateOrderRequest;
+import com.example.productorderservice.order.application.port.in.CreateOrderUseCase;
 import com.example.productorderservice.product.ProductSteps;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class OrderServiceTest {
+class OrderServiceTest extends ApiTest {
 
     @Autowired
-    private OrderService orderService;
-
-    @Autowired
-    private ProductService productService;
+    private CreateOrderUseCase createOrderUseCase;
 
     @Test
     void 주문생성() {
+        ProductSteps.상품등록요청(ProductSteps.상품추가_요청());
 
-        productService.addProduct(ProductSteps.상품조회요청_생성());
-
-        Long productId = 1L;
-        int quantity = 2;
+        final Long productId = 1L;
+        final int quantity = 2;
         final CreateOrderRequest request = new CreateOrderRequest(productId, quantity);
 
-        orderService.createOrder(request);
+        createOrderUseCase.createOrder(request);
     }
-
-
 }
