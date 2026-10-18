@@ -36,4 +36,15 @@ public class ProductSteps {
                 .log().all()
                 .extract();
     }
+
+    public static ExtractableResponse<Response> 상품목록조회_요청(final int page, final int size) {
+        return RestAssured.given().log().all()
+                .queryParam("page", page)
+                .queryParam("size", size)
+                .when()
+                .get("/products")
+                .then()
+                .log().all()
+                .extract();
+    }
 }

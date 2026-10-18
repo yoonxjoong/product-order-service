@@ -6,7 +6,6 @@ import com.example.productorderservice.ApiTest;
 import com.example.productorderservice.product.ProductSteps;
 import com.example.productorderservice.product.application.port.in.AddProductRequest;
 import com.example.productorderservice.product.application.port.in.UpdateProductRequest;
-import com.example.productorderservice.product.application.port.out.ProductPort;
 import com.example.productorderservice.product.domain.DiscountPolicy;
 import com.example.productorderservice.product.domain.Product;
 import org.junit.jupiter.api.Test;
@@ -35,4 +34,13 @@ class ProductServiceTest extends ApiTest {
         assertThat(updatedProduct.getPrice()).isEqualTo(1000L);
     }
 
+    @Test
+    void 상품조회_페이징() {
+        productService.addProduct(ProductSteps.상품추가_요청());
+        productService.addProduct(ProductSteps.상품추가_요청());
+        productService.addProduct(ProductSteps.상품추가_요청());
+
+        assertThat(productService.getProducts(0, 2)).hasSize(2);
+        assertThat(productService.getProducts(1, 2)).hasSize(1);
+    }
 }
