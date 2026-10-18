@@ -16,6 +16,7 @@ import org.springframework.restdocs.payload.FieldDescriptor;
 class OrderDocumentationTest extends DocumentationTest {
 
     private static final String TAG = "Order";
+    private static final String CREATE_ORDER_DESCRIPTION = "상품과 수량으로 주문을 생성합니다. 존재하지 않는 상품이면 `404`를 응답합니다.";
     private static final String CREATE_ORDER_REQUEST = """
             {"productId": 1, "quantity": 2}
             """;
@@ -32,6 +33,7 @@ class OrderDocumentationTest extends DocumentationTest {
                         ResourceSnippetParameters.builder()
                                 .tag(TAG)
                                 .summary("상품 주문")
+                                .description(CREATE_ORDER_DESCRIPTION)
                                 .requestSchema(Schema.schema("CreateOrderRequest"))
                                 .requestFields(createOrderRequestFields())
                                 .build())));
@@ -47,6 +49,7 @@ class OrderDocumentationTest extends DocumentationTest {
                         ResourceSnippetParameters.builder()
                                 .tag(TAG)
                                 .summary("상품 주문")
+                                .description(CREATE_ORDER_DESCRIPTION)
                                 .requestSchema(Schema.schema("CreateOrderRequest"))
                                 .requestFields(createOrderRequestFields())
                                 .responseSchema(ERROR_MESSAGE)
