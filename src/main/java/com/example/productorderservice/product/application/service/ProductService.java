@@ -7,6 +7,7 @@ import com.example.productorderservice.product.application.port.in.UpdateProduct
 import com.example.productorderservice.product.application.port.in.UpdateProductUseCase;
 import com.example.productorderservice.product.application.port.out.ProductPort;
 import com.example.productorderservice.product.domain.Product;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,12 @@ class ProductService implements AddProductUseCase, GetProductUseCase, UpdateProd
     @Transactional(readOnly = true)
     public Product getProduct(final long productId) {
         return productPort.getProduct(productId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Product> getProducts(int page, int size) {
+        return productPort.getProducts(page, size);
     }
 
     @Override
