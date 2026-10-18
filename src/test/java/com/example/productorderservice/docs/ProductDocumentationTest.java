@@ -22,6 +22,10 @@ class ProductDocumentationTest extends DocumentationTest {
 
     private static final String TAG = "Product";
     private static final String DISCOUNT_POLICY_DESCRIPTION = "할인 정책 (NONE: 할인 없음, FIX_1000_AMT: 1,000원 정액 할인)";
+    private static final String GET_PRODUCT_DESCRIPTION = "상품 ID로 상품을 조회합니다. 존재하지 않는 상품이면 `404`를 응답합니다.";
+    private static final String GET_PRODUCTS_DESCRIPTION = """
+            id 내림차순(최신순)으로 상품 목록을 페이징 조회합니다.
+            `page`가 0보다 작거나 `size`가 1 ~ 100 범위를 벗어나면 `400`을 응답합니다.""";
 
     @Test
     void 상품등록() throws Exception {
@@ -35,6 +39,7 @@ class ProductDocumentationTest extends DocumentationTest {
                         ResourceSnippetParameters.builder()
                                 .tag(TAG)
                                 .summary("상품 등록")
+                                .description("새 상품을 등록합니다. 할인 정책은 주문 금액 계산에 사용됩니다.")
                                 .requestSchema(Schema.schema("AddProductRequest"))
                                 .requestFields(productRequestFields())
                                 .build())));
@@ -50,6 +55,7 @@ class ProductDocumentationTest extends DocumentationTest {
                         ResourceSnippetParameters.builder()
                                 .tag(TAG)
                                 .summary("상품 단건 조회")
+                                .description(GET_PRODUCT_DESCRIPTION)
                                 .pathParameters(productIdParameter())
                                 .responseSchema(Schema.schema("ProductResponse"))
                                 .responseFields(productResponseFields(""))
@@ -64,6 +70,7 @@ class ProductDocumentationTest extends DocumentationTest {
                         ResourceSnippetParameters.builder()
                                 .tag(TAG)
                                 .summary("상품 단건 조회")
+                                .description(GET_PRODUCT_DESCRIPTION)
                                 .pathParameters(productIdParameter())
                                 .responseSchema(ERROR_MESSAGE)
                                 .build())));
@@ -83,7 +90,7 @@ class ProductDocumentationTest extends DocumentationTest {
                         ResourceSnippetParameters.builder()
                                 .tag(TAG)
                                 .summary("상품 목록 조회")
-                                .description("id 내림차순(최신순)으로 페이징 조회합니다.")
+                                .description(GET_PRODUCTS_DESCRIPTION)
                                 .queryParameters(pagingParameters())
                                 .responseSchema(Schema.schema("ProductListResponse"))
                                 .responseFields(productResponseFields("[]."))
@@ -100,6 +107,7 @@ class ProductDocumentationTest extends DocumentationTest {
                         ResourceSnippetParameters.builder()
                                 .tag(TAG)
                                 .summary("상품 목록 조회")
+                                .description(GET_PRODUCTS_DESCRIPTION)
                                 .queryParameters(pagingParameters())
                                 .responseSchema(ERROR_MESSAGE)
                                 .build())));
@@ -119,6 +127,7 @@ class ProductDocumentationTest extends DocumentationTest {
                         ResourceSnippetParameters.builder()
                                 .tag(TAG)
                                 .summary("상품 수정")
+                                .description("상품명, 가격, 할인 정책을 수정합니다. 존재하지 않는 상품이면 `404`를 응답합니다.")
                                 .pathParameters(productIdParameter())
                                 .requestSchema(Schema.schema("UpdateProductRequest"))
                                 .requestFields(productRequestFields())

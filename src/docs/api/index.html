@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product Order Service API</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.72.4/dist/browser/standalone.js"></script>
+<script>
+    Scalar.createApiReference('#app', {
+        url: './openapi3.yaml',
+        // 정적 문서이므로 브라우저에서 직접 요청을 보내는 기능은 숨긴다
+        hideTestRequestButton: true,
+        hideClientButton: true,
+        defaultHttpClient: { targetKey: 'shell', clientKey: 'curl' },
+        // Scalar 자체 부가 기능(개발자 도구, AI 질의, MCP 생성)은 문서와 무관하므로 숨긴다
+        showDeveloperTools: 'never',
+        agent: { disabled: true },
+        mcp: { disabled: true },
+    });
+</script>
+</body>
+</html>
