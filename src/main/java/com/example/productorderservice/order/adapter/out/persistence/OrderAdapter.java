@@ -1,5 +1,6 @@
 package com.example.productorderservice.order.adapter.out.persistence;
 
+import com.example.productorderservice.common.NotFoundException;
 import com.example.productorderservice.order.application.port.out.OrderPort;
 import com.example.productorderservice.order.domain.Order;
 import com.example.productorderservice.product.application.port.in.GetProductUseCase;
@@ -26,7 +27,7 @@ class OrderAdapter implements OrderPort {
     @Override
     public Order getOrder(final Long orderId) {
         return orderRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalArgumentException("주문이 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundException("주문이 존재하지 않습니다."));
     }
 
     @Override

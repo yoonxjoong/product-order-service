@@ -1,6 +1,7 @@
 package com.example.productorderservice.product.application.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.example.productorderservice.ApiTest;
 import com.example.productorderservice.product.ProductSteps;
@@ -42,5 +43,18 @@ class ProductServiceTest extends ApiTest {
 
         assertThat(productService.getProducts(0, 2)).hasSize(2);
         assertThat(productService.getProducts(1, 2)).hasSize(1);
+    }
+
+    @Test
+    void 상품목록조회_유효성체크() {
+        assertThatThrownBy(() -> productService.getProducts(-1, 10))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("페이지 번호는 0 이상이어야 합니다.");
+        assertThatThrownBy(() -> productService.getProducts(0, 0))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("페이지 크기는 1 이상 100 이하여야 합니다.");
+        assertThatThrownBy(() -> productService.getProducts(0, 101))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("페이지 크기는 1 이상 100 이하여야 합니다.");
     }
 }

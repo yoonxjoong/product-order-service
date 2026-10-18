@@ -34,6 +34,14 @@ class ProductApiTest extends ApiTest {
     }
 
     @Test
+    void 존재하지_않는_상품조회() {
+        final var response = ProductSteps.상품조회요청(1L);
+
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_NOT_FOUND);
+        assertThat(response.asString()).isEqualTo("상품이 존재하지 않습니다.");
+    }
+
+    @Test
     void 상품목록_조회() {
         ProductSteps.상품등록요청(ProductSteps.상품추가_요청());
         ProductSteps.상품등록요청(ProductSteps.상품추가_요청());
@@ -44,4 +52,13 @@ class ProductApiTest extends ApiTest {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_OK);
         assertThat(response.jsonPath().getList("")).hasSize(2);
     }
+
+    @Test
+    void 상품목록조회_잘못된_페이지_요청() {
+        final var response = ProductSteps.상품목록조회_요청(-1, 10);
+
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_BAD_REQUEST);
+        assertThat(response.asString()).isEqualTo("페이지 번호는 0 이상이어야 합니다.");
+    }
+
 }
